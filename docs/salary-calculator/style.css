@@ -1,0 +1,49 @@
+body {
+    background-color: #f5f5f5;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #198754;  /* Bootstrap success color */
+    color: white;
+}
+
+.table th {
+    width: 40%;
+    background-color: #f8f9fa;
+}
+
+.table-success th,
+.table-success td {
+    background-color: #d4edda;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background-color: #198754;
+    border-color: #198754;
+    padding: 10px 30px;
+}
+
+.btn-primary:hover {
+    background-color: #146c43;
+    border-color: #146c43;
+}
+
+#result {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
