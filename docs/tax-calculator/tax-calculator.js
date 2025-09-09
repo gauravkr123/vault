@@ -100,21 +100,45 @@ function formatCurrency(amount) {
     }).format(amount);
 }
 
-document.getElementById('taxForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const targetMonthly = parseFloat(document.getElementById('targetMonthly').value);
-    const basicDaPct = parseFloat(document.getElementById('basicDaPct').value);
+// Wait for DOM to be fully loaded before attaching event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    // Get form element
+    const taxForm = document.getElementById('taxForm');
+    if (!taxForm) {
+        console.error('Tax form not found!');
+        return;
+    }
 
-    const estimatedAnnualIncome = estimateGrossIncome(targetMonthly, basicDaPct);
-    const monthlyGross = estimatedAnnualIncome / 12;
-    const annualTax = computeTax(Math.max(0, estimatedAnnualIncome - 75000));
-    const monthlyTax = annualTax / 12;
+    // Add submit event listener
+    taxForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get and validate input values
+        const targetMonthly = parseFloat(document.getElementById('targetMonthly').value);
+        const basicDaPct = parseFloat(document.getElementById('basicDaPct').value);
 
-    document.getElementById('grossIncome').textContent = formatCurrency(estimatedAnnualIncome);
-    document.getElementById('monthlyGross').textContent = formatCurrency(monthlyGross);
-    document.getElementById('annualTax').textContent = formatCurrency(annualTax);
-    document.getElementById('monthlyTax').textContent = formatCurrency(monthlyTax);
-    
-    document.getElementById('result').style.display = 'block';
+        if (isNaN(targetMonthly) || isNaN(basicDaPct)) {
+            alert('Please enter valid numbers for both fields');
+            return;
+        }
+
+        if (basicDaPct <= 0 || basicDaPct > 100) {
+            alert('Basic + DA percentage must be between 0 and 100');
+            return;
+        }
+
+        // Calculate results
+        const estimatedAnnualIncome = estimateGrossIncome(targetMonthly, basicDaPct);
+        const monthlyGross = estimatedAnnualIncome / 12;
+        const annualTax = computeTax(Math.max(0, estimatedAnnualIncome - 75000));
+        const monthlyTax = annualTax / 12;
+
+        // Update display
+        document.getElementById('grossIncome').textContent = formatCurrency(estimatedAnnualIncome);
+        document.getElementById('monthlyGross').textContent = formatCurrency(monthlyGross);
+        document.getElementById('annualTax').textContent = formatCurrency(annualTax);
+        document.getElementById('monthlyTax').textContent = formatCurrency(monthlyTax);
+        
+        document.getElementById('result').style.display = 'block';
+    });
 });
