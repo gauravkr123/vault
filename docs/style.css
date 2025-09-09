@@ -1,0 +1,29 @@
+body {
+    background-color: #f8f9fa;
+}
+.tool-card {
+    transition: transform 0.2s;
+    margin-bottom: 20px;
+}
+.tool-card:hover {
+    transform: translateY(-5px);
+}
+.header-section {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 4rem 0;
+    margin-bottom: 3rem;
+}
+.tool-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+.card-body {
+    padding: 1.5rem;
+}
+.footer {
+    margin-top: 3rem;
+    padding: 2rem 0;
+    background-color: #343a40;
+    color: white;
+}

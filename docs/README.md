@@ -4,10 +4,14 @@ This directory contains various web-based tools and utilities that are hosted on
 
 ## Available Tools
 
-1. **[Indian Tax Calculator](monthly-to-gross-calculator/)**
-   - Calculate gross salary from desired take-home pay
+1. **[Gross Salary Estimator](monthly-to-gross-calculator/)**
+   - Calculate gross salary from desired take-home pay based on new regime
    - Takes into account tax slabs, standard deductions, and EPF
-   - Updated for FY 2023-24
+   - Updated for FY 2025-26
+2. **[Take-Home Calculator](gross-to-monthly-calculator/)**
+   - Calculate the monthly take-home pay based on the gross annual salary
+   - Takes into account tax slabs, standard deductions, and EPF
+   - Updated for FY 2025-26
 
 ## Hosting Information
 
@@ -19,11 +23,16 @@ These tools are hosted at: [https://gauravkr123.github.io/vault/Pages/](https://
 Pages/
 ├── index.html          # Main landing page
 ├── README.md           # This file
-└── monthly-to-gross-calculator/     # Tax calculator tool
+├── monthly-to-gross-calculator/     # Tax calculator tool
+│   ├── index.html
+│   ├── style.css
+│   ├── monthly-to-gross-calculator.js
+│   └── README.md
+└── gross-to-monthly-calculator/
     ├── index.html
-    ├── style.css
-    ├── monthly-to-gross-calculator.js
-    └── README.md
+│   ├── style.css
+│   ├── gross-to-monthly-calculator.js
+│   └── README.md
 ```
 
 ## Adding New Tools
