@@ -49,12 +49,12 @@ function computeTax(taxableIncome) {
 }
 
 /**
- * Calculate monthly take-home salary from annual gross income
+ * Calculate monthly take-home salary for a given annual income
  * @param {number} income - Annual gross income
  * @param {number} basicDaPct - Basic + DA percentage of gross
- * @returns {Object} Detailed breakdown of salary components
+ * @returns {number} Monthly take-home salary
  */
-function calculateTakeHome(income, basicDaPct) {
+function calculateTakeHomeMonthly(income, basicDaPct) {
     const standardDeduction = 75000;
     const taxableIncome = Math.max(0, income - standardDeduction);
     const tax = computeTax(taxableIncome);
@@ -65,15 +65,7 @@ function calculateTakeHome(income, basicDaPct) {
     const empfMonthly = (basicDaAnnual / 12) * 0.12;
 
     const takeHomeAnnual = postTaxAnnual - empfMonthly * 12;
-    
-    return {
-        annualGross: income,
-        monthlyGross: income / 12,
-        annualTax: tax,
-        monthlyTax: tax / 12,
-        monthlyEpf: empfMonthly,
-        monthlyTakeHome: takeHomeAnnual / 12
-    };
+    return takeHomeAnnual / 12;
 }
 
 /**
@@ -88,9 +80,9 @@ function estimateGrossIncome(targetMonthly, basicDaPct) {
 
     for (let i = 0; i < 100; i++) {
         const mid = (low + high) / 2;
-        const result = calculateTakeHome(mid, basicDaPct);
+        const calcMonthly = calculateTakeHomeMonthly(mid, basicDaPct);
 
-        if (result.monthlyTakeHome < targetMonthly) {
+        if (calcMonthly < targetMonthly) {
             low = mid;
         } else {
             high = mid;
@@ -100,11 +92,6 @@ function estimateGrossIncome(targetMonthly, basicDaPct) {
     return Math.round(low * 100) / 100;
 }
 
-/**
- * Format currency in Indian format with ₹ symbol
- * @param {number} amount - Amount to format
- * @returns {string} Formatted currency string
- */
 function formatCurrency(amount) {
     return new Intl.NumberFormat('en-IN', {
         style: 'currency',
@@ -113,40 +100,21 @@ function formatCurrency(amount) {
     }).format(amount);
 }
 
-/**
- * Update the result table with calculation results
- * @param {Object} result - Calculation results
- */
-function updateResultTable(result) {
-    document.getElementById('grossIncome').textContent = formatCurrency(result.annualGross);
-    document.getElementById('monthlyGross').textContent = formatCurrency(result.monthlyGross);
-    document.getElementById('annualTax').textContent = formatCurrency(result.annualTax);
-    document.getElementById('monthlyTax').textContent = formatCurrency(result.monthlyTax);
-    document.getElementById('monthlyEpf').textContent = formatCurrency(result.monthlyEpf);
-    document.getElementById('monthlyTakeHome').textContent = formatCurrency(result.monthlyTakeHome);
-    
-    document.getElementById('result').style.display = 'block';
-}
-
-// Event handler for Gross → Take-home calculator
-document.getElementById('grossForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const annualGross = parseFloat(document.getElementById('annualGross').value);
-    const basicDaPct = parseFloat(document.getElementById('basicDaPctGross').value);
-
-    const result = calculateTakeHome(annualGross, basicDaPct);
-    updateResultTable(result);
-});
-
-// Event handler for Take-home → Gross calculator
-document.getElementById('takeHomeForm').addEventListener('submit', function(e) {
+document.getElementById('taxForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
     const targetMonthly = parseFloat(document.getElementById('targetMonthly').value);
     const basicDaPct = parseFloat(document.getElementById('basicDaPct').value);
 
     const estimatedAnnualIncome = estimateGrossIncome(targetMonthly, basicDaPct);
-    const result = calculateTakeHome(estimatedAnnualIncome, basicDaPct);
-    updateResultTable(result);
+    const monthlyGross = estimatedAnnualIncome / 12;
+    const annualTax = computeTax(Math.max(0, estimatedAnnualIncome - 75000));
+    const monthlyTax = annualTax / 12;
+
+    document.getElementById('grossIncome').textContent = formatCurrency(estimatedAnnualIncome);
+    document.getElementById('monthlyGross').textContent = formatCurrency(monthlyGross);
+    document.getElementById('annualTax').textContent = formatCurrency(annualTax);
+    document.getElementById('monthlyTax').textContent = formatCurrency(monthlyTax);
+    
+    document.getElementById('result').style.display = 'block';
 });
