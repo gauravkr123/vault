@@ -19,7 +19,7 @@ A simple, browser-based Indian tax calculator that helps estimate gross salary b
 
 ## Live Demo
 
-Visit [https://gauravkr123.github.io/vault/Pages/tax-calculator](https://gauravkr123.github.io/vault/Pages/tax-calculator)
+Visit [https://gauravkr123.github.io/vault/Pages/monthly-to-gross-calculator](https://gauravkr123.github.io/vault/Pages/monthly-to-gross-calculator)
 
 ## Local Development
 
@@ -30,7 +30,7 @@ git clone https://github.com/gauravkr123/vault.git
 
 2. Navigate to the tax calculator directory:
 ```bash
-cd vault/Pages/tax-calculator
+cd vault/Pages/monthly-to-gross-calculator
 ```
 
 3. Open `index.html` in your web browser or use a local development server.
@@ -41,10 +41,10 @@ cd vault/Pages/tax-calculator
    ```
    vault/
    └── Pages/
-       └── tax-calculator/
+       └── monthly-to-gross-calculator/
            ├── index.html
            ├── style.css
-           ├── tax-calculator.js
+           ├── monthly-to-gross-calculator.js
            └── README.md
    ```
 
@@ -61,7 +61,7 @@ cd vault/Pages/tax-calculator
    - Select the `main` branch as the source
    - Save the settings
 
-Your site will be published at `https://gauravkr123.github.io/vault/Pages/tax-calculator/`
+Your site will be published at `https://gauravkr123.github.io/vault/Pages/monthly-to-gross-calculator/`
 
 ## How it Works
 
