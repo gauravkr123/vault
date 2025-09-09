@@ -24,5 +24,12 @@ body {
 }
 
 .btn-primary {
+    background-color: #198754;
+    border-color: #198754;
     padding: 10px 30px;
+}
+
+.btn-primary:hover {
+    background-color: #146c43;
+    border-color: #146c43;
 }
